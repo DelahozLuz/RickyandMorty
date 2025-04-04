@@ -1,4 +1,4 @@
-#  Rick and Morty Character Explorer
+#  Rick and Morty 
 
 Una aplicación web construida con React + TypeScript que consume la API de Rick and Morty (GraphQL), permitiendo explorar, buscar, filtrar, ordenar, marcar como favoritos, eliminar y restaurar personajes de manera interactiva.
 
