@@ -125,7 +125,7 @@ git https://github.com/DelahozLuz/RickyandMorty.git
 cd RickyandMorty
 
 # Se construye el contenedor
-docker build -t app-rick-morty .
+docker build -t RickyandMorty
 
 # Se ejecuta el contenedor creado
 docker run -p 3000:80 RickyandMorty
