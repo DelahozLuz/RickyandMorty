@@ -145,8 +145,8 @@ npm run test           # Ejecutar pruebas unitarias
 ---
 
 ##  Diagrama arquitectura
-![Vista previa](./assets/rick7.drawio.png)
+![Diagrama de arquitectura](./src/assets/rick7.drawio.png)
 
 
-
+S
 
