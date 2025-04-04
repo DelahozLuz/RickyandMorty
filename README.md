@@ -102,7 +102,7 @@ src/
 
 ```bash
 # Clona el repositorio
-git clone https://github.com/tuusuario/rick-morty-explorer.git
+git clone https://github.com/DelahozLuz/RickyandMorty.git
 
 # Entra al proyecto
 cd RickyandMorty
@@ -119,7 +119,7 @@ npm run dev
 ##  Instalación y ejecución con Docker
 ```bash
 # Clona el repositorio
-git clone https://github.com/tuusuario/rick-morty-explorer.git
+git https://github.com/DelahozLuz/RickyandMorty.git
 
 # Entra al proyecto
 cd RickyandMorty
