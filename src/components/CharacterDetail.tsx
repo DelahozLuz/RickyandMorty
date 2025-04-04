@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Character, CharacterExtraData } from '../types';
+import { HiHeart } from 'react-icons/hi';
 
 type Props = {
   character: Character;
@@ -22,21 +23,41 @@ export default function CharacterDetail({ character, extra, onUpdateExtra }: Pro
   };
 
   return (
-    <div className="w-full h-full bg-white rounded-xl shadow-lg p-6 md:p-10 space-y-8 overflow-y-auto">
-      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
-        <img src={character.image} alt={character.name} className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-purple-200" />
-        <div className="text-center md:text-left">
-          <h1 className="text-4xl font-bold text-gray-800">{character.name}</h1>
-          <p className="text-xl text-gray-600">{character.species}</p>
+    <div className="w-full h-full p-6 md:p-10 space-y-10 font-sans">
+     
+      <div className="flex flex-col items-start gap-2 relative">
+        <div className="relative w-fit">
+          <img
+            src={character.image}
+            alt={character.name}
+            className="w-16 h-16 rounded-full object-cover"
+          />
+          {extra?.favorite && (
+            <span className="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-white flex items-center justify-center">
+              <HiHeart className="text-green-500 text-base" />
+            </span>
+          )}
+        </div>
+        <h1 className="text-lg font-semibold text-gray-900 pt-1">{character.name}</h1>
+      </div>
+
+     
+      <div className="space-y-6 text-left divide-y divide-gray-300">
+        <div className="pt-2">
+          <p className="text-sm font-medium text-gray-500">Specie</p>
+          <p className="text-base text-gray-900">{character.species}</p>
+        </div>
+        <div className="pt-2">
+          <p className="text-sm font-medium text-gray-500">Status</p>
+          <p className="text-base text-gray-900">{character.status}</p>
+        </div>
+        <div className="pt-2">
+          <p className="text-sm font-medium text-gray-500">Origin</p>
+          <p className="text-base text-gray-900">{character.origin?.name}</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-base text-gray-800">
-        <div><strong>Status:</strong> {character.status}</div>
-        <div><strong>Gender:</strong> {character.gender}</div>
-        <div><strong>Origin:</strong> {character.origin?.name}</div>
-      </div>
-
+   
       <div>
         <button
           onClick={() => onUpdateExtra({ favorite: !extra?.favorite })}
@@ -48,8 +69,9 @@ export default function CharacterDetail({ character, extra, onUpdateExtra }: Pro
         </button>
       </div>
 
+     
       <div className="space-y-4 max-w-full">
-        <label className="block text-lg font-semibold text-gray-700">comments</label>
+        <label className="block text-lg font-semibold text-gray-700">Comments</label>
 
         {extra?.comment && (
           <div className="bg-gray-100 p-4 rounded-lg border text-gray-800 max-w-full overflow-auto">
@@ -73,7 +95,7 @@ export default function CharacterDetail({ character, extra, onUpdateExtra }: Pro
           >
             Submit comment
           </button>
-          {saved && <span className="text-green-500 text-sm">Saved comment✅</span>}
+          {saved && <span className="text-green-500 text-sm">Saved comment ✅</span>}
         </div>
       </div>
     </div>

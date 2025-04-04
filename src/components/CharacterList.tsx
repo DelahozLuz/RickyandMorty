@@ -36,10 +36,18 @@ export default function CharacterList({
 }: Props) {
   const { characters, loading, error } = useCharacters();
   const [showFilters, setShowFilters] = useState(false);
+  const [localFilterType, setLocalFilterType] = useState(filterType);
+  const [localFilterSpecies, setLocalFilterSpecies] = useState(filterSpecies);
   const navigate = useNavigate();
 
   if (loading) return <p className="text-sm text-gray-400">Cargando personajes...</p>;
   if (error) return <p className="text-sm text-red-400">Error al cargar personajes</p>;
+
+  const handleApplyFilters = () => {
+    setFilterType(localFilterType);
+    setFilterSpecies(localFilterSpecies);
+    setShowFilters(false);
+  };
 
   const filtered = characters.filter((char) => {
     const extra = extras[char.id];
@@ -80,7 +88,7 @@ export default function CharacterList({
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder=" search character..."
-          className="w-full px-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 pr-10"
+          className="w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 pr-10"
         />
         <button
           onClick={() => setShowFilters(!showFilters)}
@@ -89,34 +97,56 @@ export default function CharacterList({
         >
           <HiAdjustments className="text-xl" />
         </button>
-      </div>
 
-      {showFilters && (
-        <div className="bg-gray-50 p-4 rounded-xl shadow-inner space-y-4">
-          <div>
-            <p className="text-sm font-semibold text-gray-600 mb-1">Character</p>
-            <div className="flex gap-2 flex-wrap">
-              <button onClick={() => setFilterType('all')} className={`px-3 py-1 rounded-full text-sm ${filterType === 'all' ? 'bg-purple-200' : 'bg-gray-100'}`}>All</button>
-              <button onClick={() => setFilterType('starred')} className={`px-3 py-1 rounded-full text-sm ${filterType === 'starred' ? 'bg-purple-200' : 'bg-gray-100'}`}>Starred</button>
-              <button onClick={() => setFilterType('others')} className={`px-3 py-1 rounded-full text-sm ${filterType === 'others' ? 'bg-purple-200' : 'bg-gray-100'}`}>Others</button>
-              <button onClick={() => setFilterType('deleted')} className={`px-3 py-1 rounded-full text-sm ${filterType === 'deleted' ? 'bg-purple-200' : 'bg-gray-100'}`}>Eliminados</button>
+        {showFilters && (
+          <div className="absolute top-12 left-0 w-full z-10 bg-white p-4 rounded-xl shadow-xl space-y-4">
+            <div>
+              <p className="text-sm font-semibold text-gray-600 mb-1">Character</p>
+              <div className="flex gap-2 flex-wrap">
+                {(['all', 'starred', 'others', 'deleted'] as const).map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => setLocalFilterType(type)}
+                    className={`px-3 py-1 rounded-full text-sm ${
+                      localFilterType === type ? 'bg-purple-200' : 'bg-gray-100'
+                    }`}
+                  >
+                    {type[0].toUpperCase() + type.slice(1)}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-gray-600 mb-1">Species</p>
-            <div className="flex gap-2 flex-wrap">
-              <button onClick={() => setFilterSpecies('all')} className={`px-3 py-1 rounded-full text-sm ${filterSpecies === 'all' ? 'bg-purple-200' : 'bg-gray-100'}`}>All</button>
-              <button onClick={() => setFilterSpecies('Human')} className={`px-3 py-1 rounded-full text-sm ${filterSpecies === 'Human' ? 'bg-purple-200' : 'bg-gray-100'}`}>Human</button>
-              <button onClick={() => setFilterSpecies('Alien')} className={`px-3 py-1 rounded-full text-sm ${filterSpecies === 'Alien' ? 'bg-purple-200' : 'bg-gray-100'}`}>Alien</button>
+            <div>
+              <p className="text-sm font-semibold text-gray-600 mb-1">Species</p>
+              <div className="flex gap-2 flex-wrap">
+                {(['all', 'Human', 'Alien'] as const).map((specie) => (
+                  <button
+                    key={specie}
+                    onClick={() => setLocalFilterSpecies(specie)}
+                    className={`px-3 py-1 rounded-full text-sm ${
+                      localFilterSpecies === specie ? 'bg-purple-200' : 'bg-gray-100'
+                    }`}
+                  >
+                    {specie}
+                  </button>
+                ))}
+              </div>
             </div>
+
+            <button
+              onClick={handleApplyFilters}
+              className="w-full bg-purple-500 hover:bg-purple-600 text-white py-2 rounded-full text-sm font-semibold"
+            >
+              Filter
+            </button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       <ul className="space-y-2">
         {filterType === 'all' ? (
           <>
-            {favorites.length > 0 && <h3 className="text-sm font-bold text-gay-600 mt-4">Favorite Characters</h3>}
+            {favorites.length > 0 && <h3 className="text-sm font-bold text-gray-600 mt-4">Favorite Characters</h3>}
             {favorites.map((char) => (
               <CharacterCard
                 key={char.id}

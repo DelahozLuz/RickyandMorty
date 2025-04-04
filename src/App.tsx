@@ -58,7 +58,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <button
-        className="fixed top-4 left-4 z-50 bg-purple-600 text-white p-2 rounded-full shadow-lg md:hidden"
+        className="fixed top-4 left-4 z-50 bg-purple-600 text-white p-2 rounded-lg shadow-lg md:hidden"
         onClick={() => setSidebarVisible(!sidebarVisible)}
       >
         <HiMenu className="text-xl" />
@@ -68,12 +68,15 @@ export default function App() {
         {sidebarVisible && (
           <aside className="w-80 bg-white p-6 border-r top-8 overflow-y-auto absolute md:relative z-40 h-full shadow-lg md:shadow-none">
             <div className="mb-4">
+            <div className="flex items-center gap-2 mb-4">
+               <h2 className="text-lg font-semibold text-gray-900">Rick and Morty list</h2>
+              </div>
               <label htmlFor="sort" className="block text-sm  font-medium text-gray-600 mb-1">Order:</label>
               <select
                 id="sort"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
-                className="w-full border border-gray-300 rounded-full p-2 text-sm"
+                className="w-full border border-gray-300 rounded-lg p-2 text-sm"
               >
                 <option value="asc">Name (A-Z)</option>
                 <option value="desc">Name (Z-A)</option>

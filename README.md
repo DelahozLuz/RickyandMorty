@@ -1,54 +1,148 @@
-# React + TypeScript + Vite
+#  Rick and Morty Character Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación web construida con React + TypeScript que consume la API de Rick and Morty (GraphQL), permitiendo explorar, buscar, filtrar, ordenar, marcar como favoritos, eliminar y restaurar personajes de manera interactiva.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##  Funcionalidades clave
 
-## Expanding the ESLint configuration
+###  Lista de personajes
+- Vista en forma de tarjetas con imagen, nombre y especie.
+- Navegación a detalles individuales de cada personaje.
+- Diseño responsive y optimizado para móvil.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+###  Filtros y búsqueda
+- Filtro por tipo de personaje:
+  - Favoritos
+  - Eliminados (soft delete)
+  - Todos
+  -  Otros
+- Filtro por especie (`Human`, `Alien`, etc).
+- Barra de búsqueda por nombre en tiempo real.
+- Ordenamiento ascendente o descendente por nombre.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+###  Favoritos
+- Puedes marcar personajes como favoritos.
+- En el listado "Todos", los favoritos aparecen primero.
+- Sección separada en el listado para "Favorite Characters" y "All Characters".
+
+###  Soft Delete
+- Elimina y recupera personajes con un solo clic.
+- Se conserva su estado en `localStorage`.
+- Al eliminar/restaurar, se muestra un mensaje de confirmación con `react-toastify`.
+
+###  Soporte móvil
+- Barra lateral (sidebar) adaptable con botón tipo hamburguesa.
+- Sidebar se oculta al seleccionar un personaje en pantallas pequeñas.
+- Botón para mostrar/ocultar sidebar nuevamente.
+
+---
+
+##  Pruebas unitarias
+
+La aplicación incluye **pruebas unitarias** para componentes clave usando:
+
+- [`Jest`](https://jestjs.io/)
+- [`React Testing Library`](https://testing-library.com/docs/react-testing-library/intro/)
+
+### Ejecutar pruebas
+
+```bash
+npm run test
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Estructura de la pruebas
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+src/
+├── __tests__/
+    ___components__/
+│   ├── CharacterList.test.tsx
+│   ├── CharacterDetail.test.ts
+│   └── CharacterCard.test.tsx
+```
+
+---
+
+##  Tecnologías utilizadas
+
+- **React 18 + TypeScript**
+- **React Router DOM**
+- **Tailwind CSS**
+- **Apollo Client** (API GraphQL de Rick and Morty)
+- **React Icons** para íconos visuales
+- **React Toastify** para notificaciones
+- **Jest + Testing Library** para pruebas
+
+---
+
+##  Estructura del proyecto
+
+```
+src/
+├── components/
+│   ├── CharacterList.tsx
+│   ├── CharacterCard.tsx
+│   └── CharacterDetail.tsx
+├── pages/
+│   └── CharacterDetailPage.tsx
+├── hooks/
+│   └── useCharacters.ts
+├── types.ts
+├── App.tsx
+└── __tests__/___components___/
+    └───CharacterList.test.tsx
+│   ├── CharacterDetail.test.ts
+│   └── CharacterCard.test.tsx
+```
+
+---
+
+##  Instalación y ejecución local
+
+```bash
+# Clona el repositorio
+git clone https://github.com/tuusuario/rick-morty-explorer.git
+
+# Entra al proyecto
+cd RickyandMorty
+
+# Instala dependencias
+npm install
+
+# Corre el proyecto en modo desarrollo
+npm run dev
+```
+
+---
+
+##  Instalación y ejecución con Docker
+```bash
+# Clona el repositorio
+git clone https://github.com/tuusuario/rick-morty-explorer.git
+
+# Entra al proyecto
+cd RickyandMorty
+
+# Se construye el contenedor
+docker build -t app-rick-morty .
+
+# Se ejecuta el contenedor creado
+docker run -p 3000:80 RickyandMorty
+```
+
+
+---
+
+##  Scripts útiles
+
+```bash
+npm run dev        # Ejecutar en modo desarrollo
+npm run build      # Generar build de producción
+npm run test           # Ejecutar pruebas unitarias
+```
+
+---
+
+
+
